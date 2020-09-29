@@ -1,12 +1,39 @@
+buildscript {
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.10.1'
 }
 
 group = 'yuan.gallery'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.00
+            }
+        }
+    }
+}
 
 configurations {
     compileOnly {
@@ -34,4 +61,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestCoverageVerification'
 }
