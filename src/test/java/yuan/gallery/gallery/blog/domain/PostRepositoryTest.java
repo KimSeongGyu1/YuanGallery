@@ -30,7 +30,7 @@ class PostRepositoryTest {
     @Test
     void saveManyToOne() {
         Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
-        Post post = Post.of(blog, POST_TITLE, LocalDateTime.now());
+        Post post = Post.of(blog, POST_TITLE, POST_LINK, LocalDateTime.now());
 
         postRepository.save(post);
 

@@ -30,9 +30,11 @@ public class Post {
 
     private String title;
 
+    private String link;
+
     private LocalDateTime publishedDate;
 
-    public static Post of(Blog blog, String title, LocalDateTime publishedDate) {
-        return new Post(null, blog, title, publishedDate);
+    public static Post of(Blog blog, String title, String link, LocalDateTime publishedDate) {
+        return new Post(null, blog, title, link, publishedDate);
     }
 }
