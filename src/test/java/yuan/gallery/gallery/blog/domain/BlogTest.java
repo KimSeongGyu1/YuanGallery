@@ -16,6 +16,9 @@ public class BlogTest {
     @Test
     void of() {
         Blog blog = Blog.of(BLOG_NAME,BLOG_URL, BLOG_RSS_URL);
-        assertThat(blog).isExactlyInstanceOf(Blog.class);
+
+        assertThat(blog.getName()).isEqualTo(BLOG_NAME);
+        assertThat(blog.getUrl()).isEqualTo(BLOG_URL);
+        assertThat(blog.getRssUrl()).isEqualTo(BLOG_RSS_URL);
     }
 }

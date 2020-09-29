@@ -17,8 +17,11 @@ public class PostTest {
     @Test
     void of() {
         Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
-        Post post = Post.of(blog, POST_TITLE, LocalDateTime.now());
+        LocalDateTime publishedDate = LocalDateTime.now();
+        Post post = Post.of(blog, POST_TITLE, publishedDate);
 
-        assertThat(post).isExactlyInstanceOf(Post.class);
+        assertThat(post.getBlog()).isEqualTo(blog);
+        assertThat(post.getTitle()).isEqualTo(POST_TITLE);
+        assertThat(post.getPublishedDate()).isEqualTo(publishedDate);
     }
 }
