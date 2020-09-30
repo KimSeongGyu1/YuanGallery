@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
@@ -81,6 +82,7 @@ class RssFeedReaderTest {
         mockServer.stop();
     }
 
+    @DisplayName("피드 읽어오기 테스트")
     @Test
     void readFeed() {
         RssFeedReader rssFeedReader = new RssFeedReader();
@@ -98,6 +100,7 @@ class RssFeedReaderTest {
         );
     }
 
+    @DisplayName("피드 읽어오기 실패 테스트")
     @Test
     void FailToReadFeed() {
         RssFeedReader rssFeedReader = new RssFeedReader();
