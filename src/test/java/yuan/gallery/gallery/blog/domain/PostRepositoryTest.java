@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @DataJpaTest
 class PostRepositoryTest {
@@ -40,5 +41,17 @@ class PostRepositoryTest {
 
         blogRepository.save(blog);
         assertThat(persistedPost.getBlog().getId()).isNotNull();
+    }
+
+    @DisplayName("복합 유니크 키 학습 테스트")
+    @Test
+    void saveUnique() {
+        Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
+        Post post = Post.of(blog, POST_TITLE, POST_LINK, LocalDateTime.now());
+        blogRepository.save(blog);
+        postRepository.save(post);
+
+        Post post2 = Post.of(blog, POST_TITLE, POST_LINK, LocalDateTime.now());
+        assertThatThrownBy(() -> postRepository.save(post2)).isInstanceOf(DataIntegrityViolationException.class);
     }
 }

@@ -1,7 +1,6 @@
 package yuan.gallery.gallery.blog.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static yuan.gallery.gallery.blog.domain.BlogTest.*;
 
 import java.time.LocalDateTime;
@@ -23,6 +22,7 @@ public class PostTest {
 
         assertThat(post.getBlog()).isEqualTo(blog);
         assertThat(post.getTitle()).isEqualTo(POST_TITLE);
+        assertThat(post.getLink()).isEqualTo(POST_LINK);
         assertThat(post.getPublishedDate()).isEqualTo(publishedDate);
     }
 }

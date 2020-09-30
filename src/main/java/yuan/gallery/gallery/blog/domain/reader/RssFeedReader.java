@@ -3,12 +3,15 @@ package yuan.gallery.gallery.blog.domain.reader;
 import java.io.IOException;
 import java.net.URL;
 
+import org.springframework.stereotype.Component;
+
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import yuan.gallery.gallery.blog.exception.FailToReadFeedException;
 
+@Component
 public class RssFeedReader {
 
     public SyndFeed readFeed(String rssUrl) {
