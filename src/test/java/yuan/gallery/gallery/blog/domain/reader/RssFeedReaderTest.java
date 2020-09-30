@@ -28,12 +28,14 @@ class RssFeedReaderTest {
     private static final String POST_ONE_TITLE = "포스트 하나";
     private static final String POST_ONE_LINK = "https://yuan.tistory.com/1";
     private static final String POST_ONE_DATE_IN_XML = "Tue, 29 Sep 2020 09:58:44 +0900";
-    private static final String POST_ONE_DATE_TO_STRING = "Tue Sep 29 09:58:44 KST 2020";
+    private static final String POST_ONE_DATE_RANGE_START = "2020-09-28 09:58:44";
+    private static final String POST_ONE_DATE_RANGE_END = "2020-09-30 09:58:44";
 
     private static final String POST_TWO_TITLE = "포스트 둘";
     private static final String POST_TWO_LINK = "https://yuan.tistory.com/2";
     private static final String POST_TWO_DATE_IN_XML = "Mon, 21 Sep 2020 22:31:45 +0900";
-    private static final String POST_TWO_DATE_TO_STRING = "Mon Sep 21 22:31:45 KST 2020";
+    private static final String POST_TWO_DATE_RANGE_START = "2020-09-20 22:31:45";
+    private static final String POST_TWO_DATE_RANGE_END = "2020-09-22 22:31:45";
 
     private ClientAndServer mockServer;
 
@@ -93,10 +95,12 @@ class RssFeedReaderTest {
             () -> assertThat(syndFeed.getLink()).isEqualTo(BLOG_URL + ":" + BLOG_PORT),
             () -> assertThat(entries.get(0).getTitle()).isEqualTo(POST_ONE_TITLE),
             () -> assertThat(entries.get(0).getLink()).isEqualTo(POST_ONE_LINK),
-            () -> assertThat(entries.get(0).getPublishedDate().toString()).isEqualTo(POST_ONE_DATE_TO_STRING),
+            () -> assertThat(entries.get(0).getPublishedDate()).isBetween(POST_ONE_DATE_RANGE_START,
+                POST_ONE_DATE_RANGE_END),
             () -> assertThat(entries.get(1).getTitle()).isEqualTo(POST_TWO_TITLE),
             () -> assertThat(entries.get(1).getLink()).isEqualTo(POST_TWO_LINK),
-            () -> assertThat(entries.get(1).getPublishedDate().toString()).isEqualTo(POST_TWO_DATE_TO_STRING)
+            () -> assertThat(entries.get(1).getPublishedDate()).isBetween(POST_TWO_DATE_RANGE_START,
+                POST_TWO_DATE_RANGE_END)
         );
     }
 
