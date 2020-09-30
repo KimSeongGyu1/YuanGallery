@@ -95,12 +95,12 @@ class RssFeedReaderTest {
             () -> assertThat(syndFeed.getLink()).isEqualTo(BLOG_URL + ":" + BLOG_PORT),
             () -> assertThat(entries.get(0).getTitle()).isEqualTo(POST_ONE_TITLE),
             () -> assertThat(entries.get(0).getLink()).isEqualTo(POST_ONE_LINK),
-            () -> assertThat(entries.get(0).getPublishedDate()).isBetween(POST_ONE_DATE_RANGE_START,
-                POST_ONE_DATE_RANGE_END),
+            () -> assertThat(entries.get(0).getPublishedDate())
+                .isBetween(POST_ONE_DATE_RANGE_START, POST_ONE_DATE_RANGE_END),
             () -> assertThat(entries.get(1).getTitle()).isEqualTo(POST_TWO_TITLE),
             () -> assertThat(entries.get(1).getLink()).isEqualTo(POST_TWO_LINK),
-            () -> assertThat(entries.get(1).getPublishedDate()).isBetween(POST_TWO_DATE_RANGE_START,
-                POST_TWO_DATE_RANGE_END)
+            () -> assertThat(entries.get(1).getPublishedDate())
+                .isBetween(POST_TWO_DATE_RANGE_START, POST_TWO_DATE_RANGE_END)
         );
     }
 
