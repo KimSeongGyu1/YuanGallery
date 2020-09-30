@@ -16,6 +16,7 @@ import org.mockserver.model.Header;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import yuan.gallery.gallery.blog.exception.FailToReadFeedException;
 
 class RssFeedReaderTest {
 
@@ -95,5 +96,13 @@ class RssFeedReaderTest {
             () -> assertThat(entries.get(1).getLink()).isEqualTo(POST_TWO_LINK),
             () -> assertThat(entries.get(1).getPublishedDate().toString()).isEqualTo(POST_TWO_DATE_TO_STRING)
         );
+    }
+
+    @Test
+    void FailToReadFeed() {
+        RssFeedReader rssFeedReader = new RssFeedReader();
+
+        assertThatThrownBy(() -> rssFeedReader.readFeed("strangeUrl"))
+            .isInstanceOf(FailToReadFeedException.class);
     }
 }

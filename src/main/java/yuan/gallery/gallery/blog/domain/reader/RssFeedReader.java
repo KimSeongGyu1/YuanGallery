@@ -7,6 +7,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import yuan.gallery.gallery.blog.exception.FailToReadFeedException;
 
 public class RssFeedReader {
 
@@ -16,7 +17,7 @@ public class RssFeedReader {
             XmlReader reader = new XmlReader(url);
             return new SyndFeedInput().build(reader);
         } catch (FeedException | IOException e) {
-            throw new RuntimeException();
+            throw new FailToReadFeedException();
         }
     }
 }
