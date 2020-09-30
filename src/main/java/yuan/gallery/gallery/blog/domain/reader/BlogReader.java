@@ -7,12 +7,15 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import lombok.AllArgsConstructor;
 import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.Post;
 
+@Component
 @AllArgsConstructor
 public class BlogReader {
 
