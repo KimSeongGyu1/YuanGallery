@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 public class BlogTest {
 
     public static final String BLOG_NAME = "test blog name";
-    public static final String BLOG_URL = "https://jojoldu.tistory.com";
-    public static final String BLOG_RSS_URL = "https://jojoldu.tistory.com/rss";
+    public static final String BLOG_URL = "https://kimseonggyu.tistory.com";
+    public static final String BLOG_RSS_URL = "https://kimseonggyu.tistory.com/rss";
 
     @DisplayName("정적 팩토리 메서드 테스트")
     @Test

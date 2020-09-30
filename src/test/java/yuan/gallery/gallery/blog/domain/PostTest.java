@@ -12,13 +12,14 @@ import org.junit.jupiter.api.Test;
 public class PostTest {
 
     public static final String POST_TITLE = "post title";
+    public static final String POST_LINK = "https://kimseonggyu.tistory.com/2";
 
     @DisplayName("정적 팩토리 메서드 테스트")
     @Test
     void of() {
         Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
         LocalDateTime publishedDate = LocalDateTime.now();
-        Post post = Post.of(blog, POST_TITLE, publishedDate);
+        Post post = Post.of(blog, POST_TITLE, POST_LINK, publishedDate);
 
         assertThat(post.getBlog()).isEqualTo(blog);
         assertThat(post.getTitle()).isEqualTo(POST_TITLE);
