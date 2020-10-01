@@ -9,9 +9,7 @@ import java.util.Set;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.BlogRepository;
 import yuan.gallery.gallery.blog.domain.Post;
@@ -19,13 +17,12 @@ import yuan.gallery.gallery.blog.domain.PostRepository;
 import yuan.gallery.gallery.blog.domain.reader.BlogReader;
 
 @Service
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BlogFeedService {
 
-    private BlogReader blogReader;
-    private BlogRepository blogRepository;
-    private PostRepository postRepository;
+    private final BlogReader blogReader;
+    private final BlogRepository blogRepository;
+    private final PostRepository postRepository;
 
     // 1800000ms = 1800s = 30min
     @Scheduled(fixedRate = 1800000)

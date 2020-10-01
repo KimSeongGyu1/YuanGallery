@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import yuan.gallery.gallery.blog.domain.Post;
 import yuan.gallery.gallery.blog.domain.PostRepository;
 import yuan.gallery.gallery.blog.dto.PostResponses;
 
 @RestController
 @RequestMapping("/api/blog")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BlogController {
 
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
     @GetMapping("/posts")
     public ResponseEntity<PostResponses> readAllPosts() {
