@@ -2,6 +2,7 @@
   <v-app>
     <NavigationBar/>
     <PostList/>
+    <router-view/>
   </v-app>
 </template>
 

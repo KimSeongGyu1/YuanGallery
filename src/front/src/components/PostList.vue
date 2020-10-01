@@ -22,7 +22,9 @@ export default {
         Post
     },
     async created() {
-        const { data } = await getAction('/api/blog/posts');
+        const page = this.$route.query.page ? this.$route.query.page : 0;
+        const url = `/api/blog/postsInPage?page=${page}&size=10&sort=publishedDate,desc`;
+        const { data } = await getAction(url);
         this.fetchedPosts = data.postResponses;
     }
 }

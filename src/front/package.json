@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "path": "^0.12.7",
     "vue": "^2.6.11",
+    "vue-router": "^3.4.5",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
