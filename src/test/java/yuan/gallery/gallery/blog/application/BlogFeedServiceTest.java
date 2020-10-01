@@ -39,22 +39,20 @@ class BlogFeedServiceTest {
     @Test
     void updateBlogsFeed() {
         Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
+        blogRepository.save(blog);
+
         Set<Post> posts = new HashSet<Post>() {{
            add(Post.of(blog, "title one", "link one", LocalDateTime.now()));
            add(Post.of(blog, "title two", "link two", LocalDateTime.now()));
         }};
-
-        given(blogReader.readBlog(blog)).willReturn(posts);
+        given(blogReader.readBlog(any())).willReturn(posts);
 
         BlogFeedService blogFeedService = new BlogFeedService(blogReader, blogRepository, postRepository);
-        blogFeedService.updateBlogsFeed();
-        assertThat(postRepository.count()).isEqualTo(0);
-
-        blogRepository.save(blog);
-        blogFeedService.updateBlogsFeed();
-        assertThat(postRepository.count()).isEqualTo(2);
 
         blogFeedService.updateBlogsFeed();
-        assertThat(postRepository.count()).isEqualTo(2);
+        Long firstCount = postRepository.count();
+
+        blogFeedService.updateBlogsFeed();
+        assertThat(postRepository.count()).isEqualTo(firstCount);
     }
 }

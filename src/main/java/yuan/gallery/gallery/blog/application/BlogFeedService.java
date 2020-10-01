@@ -9,9 +9,7 @@ import java.util.Set;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.BlogRepository;
 import yuan.gallery.gallery.blog.domain.Post;
@@ -19,20 +17,19 @@ import yuan.gallery.gallery.blog.domain.PostRepository;
 import yuan.gallery.gallery.blog.domain.reader.BlogReader;
 
 @Service
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BlogFeedService {
 
-    private BlogReader blogReader;
-    private BlogRepository blogRepository;
-    private PostRepository postRepository;
+    private final BlogReader blogReader;
+    private final BlogRepository blogRepository;
+    private final PostRepository postRepository;
 
-    // 1800000ms = 1800s = 30min
-    @Scheduled(fixedRate = 1800000)
+    // 3600000ms = 3600s = 1hour
+    @Scheduled(fixedRate = 3600000)
     public void updateBlogsFeed() {
         List<Blog> blogs = blogRepository.findAll();
-        Set<Post> posts = readAllPosts(blogs);
-        Set<Post> newPosts = filterOnlyNewPosts(posts);
+        Set<Post> postsFromFeed = readAllPosts(blogs);
+        Set<Post> newPosts = filterOnlyNewPosts(postsFromFeed);
         postRepository.saveAll(newPosts);
     }
 
@@ -43,11 +40,11 @@ public class BlogFeedService {
             .collect(toSet());
     }
 
-    private Set<Post> filterOnlyNewPosts(Set<Post> posts) {
+    private Set<Post> filterOnlyNewPosts(Set<Post> postsFromFeed) {
         List<Post> existingPosts = postRepository.findAll();
         for (Post existingPost : existingPosts) {
-            posts.remove(existingPost);
+            postsFromFeed.remove(existingPost);
         }
-        return posts;
+        return postsFromFeed;
     }
 }

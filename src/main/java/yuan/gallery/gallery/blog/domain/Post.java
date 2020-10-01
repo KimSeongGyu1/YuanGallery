@@ -55,7 +55,7 @@ public class Post {
         if (o == null || getClass() != o.getClass())
             return false;
         Post post = (Post)o;
-        return Objects.equals(blog, post.blog) &&
+        return Objects.equals(blog.getId(), post.blog.getId()) &&
             Objects.equals(title, post.title) &&
             Objects.equals(link, post.link) &&
             Objects.equals(publishedDate, post.publishedDate);
@@ -63,6 +63,6 @@ public class Post {
 
     @Override
     public int hashCode() {
-        return Objects.hash(blog, title, link, publishedDate);
+        return Objects.hash(blog.getId(), title, link, publishedDate);
     }
 }
