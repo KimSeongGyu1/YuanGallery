@@ -24,12 +24,12 @@ public class BlogFeedService {
     private final BlogRepository blogRepository;
     private final PostRepository postRepository;
 
-    // 1800000ms = 1800s = 30min
-    @Scheduled(fixedRate = 1800000)
+    // 3600000ms = 3600s = 1hour
+    @Scheduled(fixedRate = 3600000)
     public void updateBlogsFeed() {
         List<Blog> blogs = blogRepository.findAll();
-        Set<Post> posts = readAllPosts(blogs);
-        Set<Post> newPosts = filterOnlyNewPosts(posts);
+        Set<Post> postsFromFeed = readAllPosts(blogs);
+        Set<Post> newPosts = filterOnlyNewPosts(postsFromFeed);
         postRepository.saveAll(newPosts);
     }
 
@@ -40,11 +40,11 @@ public class BlogFeedService {
             .collect(toSet());
     }
 
-    private Set<Post> filterOnlyNewPosts(Set<Post> posts) {
+    private Set<Post> filterOnlyNewPosts(Set<Post> postsFromFeed) {
         List<Post> existingPosts = postRepository.findAll();
         for (Post existingPost : existingPosts) {
-            posts.remove(existingPost);
+            postsFromFeed.remove(existingPost);
         }
-        return posts;
+        return postsFromFeed;
     }
 }
