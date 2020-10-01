@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.Post;
@@ -21,10 +23,13 @@ class PostResponsesTest {
         Post post1 = Post.of(blog, "title1", "link1", LocalDateTime.now());
         Post post2 = Post.of(blog, "title2", "link2", LocalDateTime.now());
         List<Post> posts = Arrays.asList(post1, post2);
+        Page<Post> page = new PageImpl<>(posts);
 
-        PostResponses postResponses = PostResponses.from(posts);
+        PostResponses postResponses = PostResponses.from(page);
 
         assertAll(
+            () -> assertThat(postResponses.getPageCount()).isEqualTo(1),
+
             () -> assertThat(postResponses.getPostResponses().get(0).getId()).isEqualTo(post1.getId()),
             () -> assertThat(postResponses.getPostResponses().get(0).getBlogName()).isEqualTo(blog.getName()),
             () -> assertThat(postResponses.getPostResponses().get(0).getTitle()).isEqualTo(post1.getTitle()),

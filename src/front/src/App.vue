@@ -1,21 +1,18 @@
 <template>
   <v-app>
     <NavigationBar/>
-    <PostList/>
     <router-view/>
   </v-app>
 </template>
 
 <script>
 import NavigationBar from './components/NavigationBar';
-import PostList from "./components/PostList";
 
 export default {
   name: 'App',
 
   components: {
     NavigationBar,
-    PostList
   },
 
   data: () => ({

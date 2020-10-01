@@ -1,7 +1,5 @@
 package yuan.gallery.gallery.blog.ui;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +19,11 @@ public class BlogController {
 
     private final PostRepository postRepository;
 
-    @GetMapping("/posts")
-    public ResponseEntity<PostResponses> readAllPosts() {
-        List<Post> posts = postRepository.findAll();
-
-        return ResponseEntity.ok(PostResponses.from(posts));
-    }
-
     //page=0&size=10&sort=publishedDate,desc
-    @GetMapping("/postsInPage")
+    @GetMapping("/posts")
     public ResponseEntity<PostResponses> readInPage(Pageable pageable) {
         Page<Post> page = postRepository.findAll(pageable);
-        List<Post> posts = page.getContent();
 
-        return ResponseEntity.ok(PostResponses.from(posts));
+        return ResponseEntity.ok(PostResponses.from(page));
     }
 }

@@ -29,21 +29,6 @@ class BlogControllerTest extends MvcTest {
     PostRepository postRepository;
 
     @Test
-    void readAllPosts() throws Exception {
-        Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
-        List<Post> posts = Arrays.asList(
-            Post.of(blog, "title1", "link1", LocalDateTime.now()),
-            Post.of(blog, "title2", "link2", LocalDateTime.now()));
-        given(postRepository.findAll()).willReturn(posts);
-
-        getAction("/api/blog/posts")
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.postResponses.length()", is(2)))
-            .andExpect(jsonPath("$.postResponses[0].title", is("title1")))
-            .andExpect(jsonPath("$.postResponses[1].title", is("title2")));
-    }
-
-    @Test
     void readInPage() throws Exception {
         Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
         List<Post> posts = Arrays.asList(
@@ -53,7 +38,7 @@ class BlogControllerTest extends MvcTest {
         Page<Post> page = new PageImpl<>(posts);
         given(postRepository.findAll((Pageable)any())).willReturn(page);
 
-        getAction("/api/blog/postsInPage?page=0&size=3")
+        getAction("/api/blog/posts?page=0&size=3")
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.postResponses.length()", is(3)))
             .andExpect(jsonPath("$.postResponses[0].title", is("title1")))
