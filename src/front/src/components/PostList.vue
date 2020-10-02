@@ -1,5 +1,11 @@
 <template>
     <div id="post_list">
+        <div
+            v-if="fetchedPosts.length === 0"
+            style="text-align: center"
+        >
+            검색 결과가 존재하지 않습니다.
+        </div>
         <Post
             v-for="post in fetchedPosts"
             :key="post.id"
@@ -33,8 +39,24 @@ export default {
     },
     methods: {
         async updatePosts() {
+            if (this.$route.path.startsWith("/search")) {
+                await this.updateBySearch();
+            } else {
+                await this.updateByPagination();
+            }
+        },
+        async updateByPagination() {
             const page = this.$route.params.page ? this.$route.params.page : 0;
             const url = `/api/blog/posts?page=${page}&size=10&sort=publishedDate,desc`;
+            await this.fetchData(url, page);
+        },
+        async updateBySearch() {
+            const searchTitle = this.$route.query.title;
+            const page = this.$route.query.page ? this.$route.query.page : 0;
+            const url = `/api/blog/search?searchTitle=${searchTitle}&page=${page}&size=10&sort=publishedDate,desc`;
+            await this.fetchData(url, page);
+        },
+        async fetchData(url, page) {
             const { data } = await getAction(url);
             this.fetchedPosts = data.postResponses;
             this.currentPage = parseInt(page) + 1;

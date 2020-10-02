@@ -93,4 +93,33 @@ class PostRepositoryTest {
             () -> assertThat(posts.get(2).getTitle()).isEqualTo("title3")
         );
     }
+
+    @DisplayName("검색 학습 테스트")
+    @Test
+    void findByTitleContaining() {
+        blogRepository.deleteAll();
+        postRepository.deleteAll();
+
+        Blog blog = Blog.of(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
+        blogRepository.save(blog);
+        postRepository.save(Post.of(blog, "title1", "link1", LocalDateTime.now()));
+        postRepository.save(Post.of(blog, "title2", "link2", LocalDateTime.now()));
+        postRepository.save(Post.of(blog, "title3", "link3", LocalDateTime.now()));
+        postRepository.save(Post.of(blog, "title4", "link4", LocalDateTime.now()));
+        postRepository.save(Post.of(blog, "other", "link5", LocalDateTime.now()));
+
+        PageRequest pageRequest =
+            PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "publishedDate"));
+
+        Page<Post> page1 = postRepository.findByTitleContaining("title", pageRequest);
+        Page<Post> page2 = postRepository.findByTitleContaining("other", pageRequest);
+
+        assertAll(
+            () -> assertThat(page1.getTotalElements()).isEqualTo(4),
+            () -> assertThat(page1.getContent().get(0).getTitle()).isEqualTo("title4"),
+
+            () -> assertThat(page2.getTotalElements()).isEqualTo(1),
+            () -> assertThat(page2.getContent().get(0).getTitle()).isEqualTo("other")
+        );
+    }
 }

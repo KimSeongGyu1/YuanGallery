@@ -16,6 +16,11 @@ export const router = new VueRouter({
             path: "/:page",
             name: "postPage",
             component: PostList
+        },
+        {
+            path: "/search/:page",
+            name: "searchPage",
+            componenet: PostList
         }
     ]
 })
