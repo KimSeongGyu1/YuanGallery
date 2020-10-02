@@ -6,11 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+public class UserTest {
 
     public static final String USER_NAME = "user name";
     public static final String USER_PASSWORD = "password";
     public static final boolean IS_ADMIN = true;
+    public static final User USER = new User(1L, USER_NAME, USER_PASSWORD, IS_ADMIN);
 
     @DisplayName("정적 팩토리 메서드 테스트")
     @Test
