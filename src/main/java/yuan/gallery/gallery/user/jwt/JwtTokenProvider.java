@@ -2,6 +2,9 @@ package yuan.gallery.gallery.user.jwt;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -9,6 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import yuan.gallery.gallery.user.dto.UserTokenInfo;
 import yuan.gallery.gallery.user.exception.InvalidTokenException;
 
+@Component
 public class JwtTokenProvider {
 
     private static final String USER_ID = "userId";
@@ -18,8 +22,8 @@ public class JwtTokenProvider {
     private long validationTime;
 
     public JwtTokenProvider(
-        String secretKey,
-        long validationTime
+        @Value("${jwt.token.secret-key:sample}") String secretKey,
+        @Value("${jwt.token.expire-time:100000}")long validationTime
     ) {
         this.secretKey = secretKey;
         this.validationTime = validationTime;
