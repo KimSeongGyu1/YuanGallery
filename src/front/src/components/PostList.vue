@@ -48,15 +48,15 @@ export default {
         async updateByPagination() {
             const page = this.$route.params.page ? this.$route.params.page : 0;
             const url = `/api/blog/posts?page=${page}&size=10&sort=publishedDate,desc`;
-            const { data } = await getAction(url);
-            this.fetchedPosts = data.postResponses;
-            this.currentPage = parseInt(page) + 1;
-            this.pageCount = data.pageCount;
+            await this.fetchData(url, page);
         },
         async updateBySearch() {
             const searchTitle = this.$route.query.title;
             const page = this.$route.query.page ? this.$route.query.page : 0;
             const url = `/api/blog/search?searchTitle=${searchTitle}&page=${page}&size=10&sort=publishedDate,desc`;
+            await this.fetchData(url, page);
+        },
+        async fetchData(url, page) {
             const { data } = await getAction(url);
             this.fetchedPosts = data.postResponses;
             this.currentPage = parseInt(page) + 1;
