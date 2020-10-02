@@ -1,6 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import PostList from "../components/PostList";
+import Admin from "../components/Admin";
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,11 @@ export const router = new VueRouter({
             component: PostList
         },
         {
+            path: "/admin",
+            name: "admin",
+            component: Admin
+        },
+        {
             path: "/:page",
             name: "postPage",
             component: PostList
@@ -20,7 +26,7 @@ export const router = new VueRouter({
         {
             path: "/search/:page",
             name: "searchPage",
-            componenet: PostList
+            component: PostList
         }
     ]
 })

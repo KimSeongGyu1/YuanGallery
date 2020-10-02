@@ -4,8 +4,8 @@ function getAction(url) {
     return axios.get(url);
 }
 
-function postAction(url) {
-    return axios.post(url);
+function postAction(url, request) {
+    return axios.post(url, request);
 }
 
 function putAction(url) {
