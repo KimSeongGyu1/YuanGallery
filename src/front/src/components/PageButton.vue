@@ -14,7 +14,13 @@ export default {
     props: ["currentPage", "pageCount"],
     methods: {
         onPageClick(pageNumber) {
-            this.$router.push(`/${pageNumber - 1}`);
+            const page = pageNumber - 1;
+            if (this.$route.path.startsWith("/search")) {
+                const searchTitle = this.$route.query.title;
+                this.$router.push(`/search?title=${searchTitle}&page=${page}`)
+            } else {
+                this.$router.push(`/${page}`);
+            }
         }
     }
 }
