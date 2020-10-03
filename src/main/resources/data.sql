@@ -16,3 +16,6 @@ INSERT INTO post(id, blog_id, title, link, published_date) VALUES (13, 1, 'post 
 INSERT INTO post(id, blog_id, title, link, published_date) VALUES (14, 1, 'post title14', 'post link2', '2020-09-09 02:35:31');
 INSERT INTO post(id, blog_id, title, link, published_date) VALUES (15, 1, 'post title15', 'post link1', '2020-09-10 02:35:31');
 INSERT INTO post(id, blog_id, title, link, published_date) VALUES (16, 1, 'post title16', 'post link2', '2020-09-11 02:35:31');
+
+INSERT INTO user(id, name, password, is_admin) VALUES (1, 'yuan', '1q2w3e4r', true);
+INSERT INTO user(id, name, password, is_admin) VALUES (2, 'yuan2', 'q1w2e3r4', false);

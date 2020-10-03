@@ -1,11 +1,32 @@
 import axios from "axios";
 
-function getAction(url) {
-    return axios.get(url);
+const yuanToken =`yuanToken ${getCookie("yuanToken")}`;
+
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    const value = cookies.find(cookie => {
+        return cookie.startsWith(name);
+    })
+    if (value) {
+        return value.split("=")[1];
+    }
+    return "";
 }
 
-function postAction(url) {
-    return axios.post(url);
+function getAction(url) {
+    return axios.get(url, {
+        headers: {
+            Authorization: yuanToken
+        }
+    });
+}
+
+function postAction(url, request) {
+    return axios.post(url, request, {
+        headers: {
+            Authorization: yuanToken
+        }
+    });
 }
 
 function putAction(url) {

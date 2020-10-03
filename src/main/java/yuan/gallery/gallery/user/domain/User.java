@@ -1,4 +1,4 @@
-package yuan.gallery.gallery.blog.domain;
+package yuan.gallery.gallery.user.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Blog {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +22,11 @@ public class Blog {
 
     private String name;
 
-    private String url;
+    private String password;
 
-    private String rssUrl;
+    private boolean isAdmin;
 
-    public static Blog of(String name, String url, String rssUrl) {
-        return new Blog(null, name, url, rssUrl);
+    public static User of(String name, String password, boolean isAdmin) {
+        return new User(null, name, password, isAdmin);
     }
 }
