@@ -19,12 +19,26 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import yuan.gallery.gallery.MvcTest;
+import yuan.gallery.gallery.blog.application.BlogService;
 import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.Post;
 import yuan.gallery.gallery.blog.domain.PostRepository;
+import yuan.gallery.gallery.blog.dto.BlogRegisterRequest;
+import yuan.gallery.gallery.user.dto.LoginRequest;
+import yuan.gallery.gallery.user.ui.auth.AuthInterceptor;
+import yuan.gallery.gallery.user.ui.auth.LoginUserResolver;
 
 @WebMvcTest(BlogController.class)
 class BlogControllerTest extends MvcTest {
+
+    @MockBean
+    AuthInterceptor authInterceptor;
+
+    @MockBean
+    LoginUserResolver loginUserResolver;
+
+    @MockBean
+    BlogService blogService;
 
     @MockBean
     PostRepository postRepository;
@@ -65,5 +79,17 @@ class BlogControllerTest extends MvcTest {
             .andExpect(jsonPath("$.postResponses[0].title", is("title1")))
             .andExpect(jsonPath("$.postResponses[1].title", is("title2")))
             .andExpect(jsonPath("$.postResponses[2].title", is("title3")));
+    }
+
+    @DisplayName("")
+    @Test
+    void registerBlog() throws Exception {
+        given(blogService.registerBlog(any(), any())).willReturn(1L);
+
+        BlogRegisterRequest blogRegisterRequest = new BlogRegisterRequest("name", "url", "rssUrl");
+        String inputJson = objectMapper.writeValueAsString(blogRegisterRequest);
+
+        postAction("/api/blog", inputJson)
+            .andExpect(status().isCreated());
     }
 }

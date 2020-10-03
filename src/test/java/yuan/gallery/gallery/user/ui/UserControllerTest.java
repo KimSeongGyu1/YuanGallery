@@ -14,11 +14,17 @@ import yuan.gallery.gallery.MvcTest;
 import yuan.gallery.gallery.user.application.UserService;
 import yuan.gallery.gallery.user.dto.LoginRequest;
 import yuan.gallery.gallery.user.dto.LoginResponse;
+import yuan.gallery.gallery.user.ui.auth.AuthInterceptor;
+import yuan.gallery.gallery.user.ui.auth.LoginUserResolver;
 
 @WebMvcTest(UserController.class)
 class UserControllerTest extends MvcTest {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @MockBean
+    AuthInterceptor authInterceptor;
+
+    @MockBean
+    LoginUserResolver loginUserResolver;
 
     @MockBean
     UserService userService;
