@@ -1,6 +1,7 @@
 package yuan.gallery.gallery.blog.ui;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static yuan.gallery.gallery.blog.domain.BlogTest.*;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -24,18 +24,9 @@ import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.Post;
 import yuan.gallery.gallery.blog.domain.PostRepository;
 import yuan.gallery.gallery.blog.dto.BlogRegisterRequest;
-import yuan.gallery.gallery.user.dto.LoginRequest;
-import yuan.gallery.gallery.user.ui.auth.AuthInterceptor;
-import yuan.gallery.gallery.user.ui.auth.LoginUserResolver;
 
 @WebMvcTest(BlogController.class)
 class BlogControllerTest extends MvcTest {
-
-    @MockBean
-    AuthInterceptor authInterceptor;
-
-    @MockBean
-    LoginUserResolver loginUserResolver;
 
     @MockBean
     BlogService blogService;
@@ -53,6 +44,7 @@ class BlogControllerTest extends MvcTest {
             Post.of(blog, "title3", "link3", LocalDateTime.now()));
         Page<Post> page = new PageImpl<>(posts);
         given(postRepository.findAll((Pageable)any())).willReturn(page);
+        given(authInterceptor.preHandle(any(), any(), any())).willReturn(true);
 
         getAction("/api/blog/posts?page=0&size=3&sort=publishedDate,desc")
             .andExpect(status().isOk())
@@ -72,6 +64,7 @@ class BlogControllerTest extends MvcTest {
             Post.of(blog, "title3", "link3", LocalDateTime.now()));
         Page<Post> page = new PageImpl<>(posts);
         given(postRepository.findByTitleContaining(anyString(), any())).willReturn(page);
+        given(authInterceptor.preHandle(any(), any(), any())).willReturn(true);
 
         getAction("/api/blog/search?searchTitle=title&page=0&size=3&sort=publishedDate,desc")
             .andExpect(status().isOk())
@@ -85,6 +78,7 @@ class BlogControllerTest extends MvcTest {
     @Test
     void registerBlog() throws Exception {
         given(blogService.registerBlog(any(), any())).willReturn(1L);
+        given(authInterceptor.preHandle(any(), any(), any())).willReturn(true);
 
         BlogRegisterRequest blogRegisterRequest = new BlogRegisterRequest("name", "url", "rssUrl");
         String inputJson = objectMapper.writeValueAsString(blogRegisterRequest);

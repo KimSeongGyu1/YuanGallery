@@ -35,9 +35,9 @@
 </template>
 
 <script>
-    import {postAction} from "../api";
+import { postAction } from "../api";
 
-    export default {
+export default {
     data() {
         return {
             name: "",
@@ -63,7 +63,22 @@
             }
         },
         async registerBlog() {
-
+            const blogRegisterRequest = {
+                name: this.blogName,
+                url: this.blogUrl,
+                rssUrl: this.blogRssUrl
+            }
+            await postAction("api/blog", blogRegisterRequest)
+                .then(response => {
+                    if (response.status === 201) {
+                        alert("등록 성공");
+                    } else {
+                        alert("등록 실패");
+                    }
+                })
+            this.blogName = "";
+            this.blogUrl = "";
+            this.blogRssUrl = "";
         }
     }
 }

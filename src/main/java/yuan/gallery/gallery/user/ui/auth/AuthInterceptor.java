@@ -43,7 +43,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         while(headers.hasMoreElements()) {
             String header = headers.nextElement().trim();
             if (header.startsWith("yuanToken")) {
-                return header.split(" ")[1];
+                String[] split = header.split(" ");
+                if (split.length == 2) {
+                    return header.split(" ")[1];
+                }
             }
         }
 
