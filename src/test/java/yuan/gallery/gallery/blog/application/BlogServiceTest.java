@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import yuan.gallery.gallery.blog.domain.Blog;
 import yuan.gallery.gallery.blog.domain.BlogRepository;
 import yuan.gallery.gallery.blog.dto.BlogRegisterRequest;
 import yuan.gallery.gallery.user.domain.User;
@@ -34,7 +33,7 @@ class BlogServiceTest {
     void registerBlog() {
         given(blogRepository.save(any())).willReturn(BLOG);
 
-        User user = USER;
+        User user = ADMIN_USER;
         BlogRegisterRequest blogRegisterRequest = new BlogRegisterRequest(BLOG_NAME, BLOG_URL, BLOG_RSS_URL);
         assertThat(blogService.registerBlog(user, blogRegisterRequest)).isEqualTo(BLOG_ID);
     }

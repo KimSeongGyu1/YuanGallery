@@ -24,7 +24,7 @@ class JwtTokenProviderTest {
     @DisplayName("토큰 만들고 해독하기 테스트")
     @Test
     void createAndExtractToken() {
-        User user = USER;
+        User user = ADMIN_USER;
         UserTokenInfo userTokenInfo = UserTokenInfo.from(user);
 
         String token = jwtTokenProvider.createToken(userTokenInfo);

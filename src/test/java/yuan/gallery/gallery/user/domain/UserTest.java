@@ -11,7 +11,8 @@ public class UserTest {
     public static final String USER_NAME = "user name";
     public static final String USER_PASSWORD = "password";
     public static final boolean IS_ADMIN = true;
-    public static final User USER = new User(1L, USER_NAME, USER_PASSWORD, IS_ADMIN);
+    public static final User ADMIN_USER = new User(1L, USER_NAME, USER_PASSWORD, true);
+    public static final User NOT_ADMIN_USER = new User(2L, USER_NAME, USER_PASSWORD, false);
 
     @DisplayName("정적 팩토리 메서드 테스트")
     @Test

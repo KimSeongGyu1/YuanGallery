@@ -39,7 +39,7 @@ class UserServiceTest {
     @DisplayName("로그인 테스트")
     @Test
     void login() {
-        given(userRepository.findByNameAndPassword(anyString(), anyString())).willReturn(Optional.of(USER));
+        given(userRepository.findByNameAndPassword(anyString(), anyString())).willReturn(Optional.of(ADMIN_USER));
         given(jwtTokenProvider.createToken(any())).willReturn("token");
 
         LoginRequest loginRequest = new LoginRequest("name", "password");
@@ -48,7 +48,7 @@ class UserServiceTest {
         assertAll(
             () -> assertThat(loginResponse.getToken()).isEqualTo("token"),
             () -> assertThat(loginResponse.getName()).isEqualTo(USER_NAME),
-            () -> assertThat(loginResponse.isAdmin()).isEqualTo(IS_ADMIN)
+            () -> assertThat(loginResponse.isAdmin()).isEqualTo(true)
         );
     }
 
