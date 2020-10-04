@@ -22,7 +22,7 @@
             <v-text-field
                     label="블로그 주소"
                     hide-details
-                    v-model="password"
+                    v-model="blogUrl"
             ></v-text-field>
             <v-text-field
                     label="블로그 rss 주소"
