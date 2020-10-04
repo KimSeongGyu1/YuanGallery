@@ -8,7 +8,7 @@
                     x-large
                     id="homeButton"
                 >
-                    유안 갤러리
+                    유안의 저장소
                 </v-btn>
             </v-toolbar-title>
             <v-spacer/>
